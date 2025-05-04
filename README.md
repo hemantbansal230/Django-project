@@ -13,13 +13,9 @@ Follow these steps to set up and run the project locally:
 python -m venv venv
 ```
 2️) Activate the Virtual Environment
-Mac/Linux:
-```bash
-venv\Scripts\activate
-```
 Windows:
 ```bash
-source venv/bin/activate
+source venv/Scripts/activate
 ```
 3️) Install Project Dependencies
 ```bash
@@ -28,6 +24,8 @@ pip install -r requirements.txt
 4) Migrations
 ```bash
 python manage.py makemigrations
+```
+```bash
 python manage.py migrate
 ```
 5) Run the Development Server
