@@ -7,17 +7,17 @@ A Django-based event management and hotel booking platform.
 Follow these steps to set up and run the project locally:
 
 ###
-1️) Create a Virtual Environment
+1) Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
-2️) Activate the Virtual Environment
+2) Activate the Virtual Environment
 Windows:
 ```bash
 source venv/Scripts/activate
 ```
-3️) Install Project Dependencies
+3) Install Project Dependencies
 ```bash
 pip install -r requirements.txt
 ```
