@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Browsing Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(25px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #614de2;
+            background-image: url('https://www.creativefabrica.com/wp-content/uploads/2023/05/31/Purple-Wave-Tech-Background-Graphics-71033380-1.png');
+            background-size: cover;
+            background-position: center;
+            color: #f2f7ff;
+            animation: fadeIn 1s ease-out;
+
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 50px;
+            height: 70px;
+            background-color: rgba(0, 0, 0, 0.7);;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: large;
+        }
+        .nav-links a {
+            color: #010101;
+            float: left;
+            margin-right: 20px;
+            font-weight: bolder;
+        }
+        .nav-links{
+            float: left;
+            margin-right: 565px;
+            margin-left: 0px;
+        }
+        
+        .hero {
+            padding: 0;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px;
+        }
+      
+        .carousel-item img {
+        width: 100%;
+        height: 60vh; 
+        object-fit: cover; 
+        border-radius: 20px; 
+        }
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 50px 20px;
+            background-size: cover;
+            background-position: center;
+        }
+        .category {
+            text-align: center;
+            padding: 20px;
+            background: hsl(0, 0%, 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+            
+        }
+        .category:hover {
+            transform: scale(1.3);
+        }
+        .category span {
+            font-size: 2rem;
+        }
+        .category p {
+            color: black;
+            font-weight: bold;
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+        }
+        .events {
+            padding: 50px 20px;
+        }
+        .event-card {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #fff;
+            transition: transform 0.3s ease;
+            height: 430px;
+            width: 300px;
+        }
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+        .event-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .event-info {
+            padding: 20px;
+        }
+        .event-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .event-info p {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .event-info .date {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .event-info .location {
+            font-style: italic;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #24234d;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #b5b5b5;
+            border-top: 1px solid #e7e7e7;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links div {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+        .footer-links ul li {
+            margin-bottom: 5px;
+        }
+
+        .footer-links ul li a {
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+
+        .footer-bottom a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg" style="background-color: rgba(0, 0, 0, 0.7);;">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">EventEase</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="{% url 'home' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="{% url 'tickets' %}">Tickets</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="{% url 'cart_view' %}">Cart</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="{% url 'contact' %}">Contact</a>
+                  </li>
+                  &nbsp;
+                  <!-- NEW HOTEL MANAGEMENT LINK -->
+                  <button style="background-color: #0056b3; border-radius: 20px;" ><li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'hotel:room_list' %}" style="margin-left: 0px;">HotelEase</a>
+                </li></button>
+              </ul>
+          </div>
+      
+          <!-- RIGHT SIDE USER INFO -->
+          <div class="d-flex align-items-center">
+              {% if user.is_authenticated %}
+                  <span class="navbar-text me-2 text-white"> {{ user.username }}</span>
+                  <form action="{% url 'logout' %}" method="post" class="d-inline">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                  </form>
+              {% else %}
+                  <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                  <a class="nav-link text-white" href="{% url 'register' %}">Register</a>
+              {% endif %}
+          </div>
+      </div>
+    </nav>
+    
+    
+
+    <!-- Hero Section -->
+<section class="hero">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://cdn.evbstatic.com/s3-build/fe/build/images/d0f403e21562091b19c55032b108035c-EG_MUSIC_BANNER_Desktop.webp" class="d-block w-100" alt="Slide 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://res.cloudinary.com/dwzmsvp7f/image/upload/f_auto,w_1280/c_crop%2Cg_custom%2Fv1744361418%2Fvflldajmnpbmeqe0kizo.jpg" class="d-block w-100" alt="Slide 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://res.cloudinary.com/dwzmsvp7f/image/upload/f_auto,w_1280/c_crop%2Cg_custom%2Fv1742800387%2Fvbyubx06yonjljt1tmi0.jpg" class="d-block w-100" alt="Slide 3">
+            </div>
+            <div class="carousel-item">
+                <img src="https://res.cloudinary.com/dwzmsvp7f/image/upload/f_auto,w_1280/c_crop%2Cg_custom%2Fv1744215177%2Fflrsfsiixtsf502altkf.png" class="d-block w-100" alt="Slide 4">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="category"><span>🎤</span><p>Music</p></div>
+        <div class="category"><span>🌐</span><p>Nightlife</p></div>
+        <div class="category"><span>🎭</span><p>Performing & Arts</p></div>
+        <div class="category"><span>📅</span><p>Holidays</p></div>
+        <div class="category"><span>🍽️</span><p>Food & Drink</p></div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events">
+        <h2 style="font-weight: bolder;">Upcoming Events</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="event-card">
+                    <img src="https://www.wellandfloatfest.com/assets/images/gallery-13.jpg" alt="Event 1">
+                    <div class="event-info">
+                        <h3>Float Fest Pool Party</h3>
+                        <p class="date">Date: March 23, 2025</p>
+                        <p class="location">Location: Chandigarh</p>
+                        <p>$100</p><br>
+                        <a href="/tickets" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="event-card">
+                    <img src="https://res.cloudinary.com/dwzmsvp7f/image/upload/f_auto,w_1280/c_crop%2Cg_custom%2Fv1744215177%2Fflrsfsiixtsf502altkf.png" alt="Event 2">
+                    <div class="event-info">
+                        <h3>AR rehman concert</h3>
+                        <p class="date">Date: March 25, 2025</p>
+                        <p class="location">Location: Fremont, CA</p>
+                        <p>From $1,599.00</p>
+                        <br>
+                        <a href="/tickets" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="event-card">
+                    <img src="https://th.bing.com/th/id/OIP.gBRZuDSheh9AAxWoZ1j76wHaE8?w=231&h=185&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="Event 3">
+                    <div class="event-info">
+                        <h3>Women Art Exhibition 2025</h3>
+                        <p class="date">Date: March 30, 2025</p>
+                        <p class="location">Location: Chandigarh</p>
+                        <p>$200</p>
+                        <a href="/tickets" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="event-card">
+                    <img src="https://res.cloudinary.com/dwzmsvp7f/image/upload/f_auto,w_1280/c_crop%2Cg_custom%2Fv1742800387%2Fvbyubx06yonjljt1tmi0.jpg" alt="Event 4">
+                    <div class="event-info">
+                        <h3>Elante Event</h3>
+                        <p class="date">Date: April 12, 2025</p>
+                        <p class="location">Location: Nexus Elante Mall</p>
+                        <p>From $125</p><br>
+                        <a href="/tickets" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="event-card">
+                    <img src="https://th.bing.com/th/id/OIP.owvyJ7Its0_PRDaMYYZ5ogHaE8?w=251&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="Event 5">
+                    <div class="event-info">
+                        <h3>Makeup Artist in Jalandhar</h3>
+                        <p class="date">Date: March 15, 2025</p>
+                        <p class="location">Location: 711, Model Town Rd</p>
+                        <p>$200</p>
+                        <a href="/tickets" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="event-card">
+                    <img src="https://res.cloudinary.com/dwzmsvp7f/image/upload/f_auto,w_1280/c_crop%2Cg_custom%2Fv1744361418%2Fvflldajmnpbmeqe0kizo.jpg" alt="Event 6">
+                    <div class="event-info">
+                        <h3>4 PBKS VS RCB</h3>
+                        <p class="date">Date: March 25, 2025</p>
+                        <p class="location">Location: 43 Bus Stand Road</p>
+                        <p>$1600</p><br>
+                        <a href="/tickets" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <div>
+                    <h4>Create Events</h4>
+                    <ul>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Event Marketing Platform</a></li>
+                        <li><a href="#">Eventbrite Mobile Team App</a></li>
+                        <li><a href="#">Eventbrite Check-in App</a></li>
+                        <li><a href="#">Eventbrite App Marketplace</a></li>
+                        <li><a href="#">Event Registration Software</a></li>
+                        <li><a href="#">Community Guidelines</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Strategy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Plan Events</h4>
+                    <ul>
+                        <li><a href="#">Bill Tucker Online</a></li>
+                        <li><a href="#">Event Planning</a></li>
+                        <li><a href="#">Bill Concert i Talent Online</a></li>
+                        <li><a href="#">Event Payment System</a></li>
+                        <li><a href="#">Solutions for Professional Services</a></li>
+                        <li><a href="#">Event Management Software</a></li>
+                        <li><a href="#">Melbourne Play Planning</a></li>
+                        <li><a href="#">Virtual Event Platform</a></li>
+                        <li><a href="#">QR Code for Event Check-in</a></li>
+                        <li><a href="#">Past your event online</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Find Events</h4>
+                    <ul>
+                        <li><a href="#">New Orleans Ford & Ford Events</a></li>
+                        <li><a href="#">San Francisco Holiday Events</a></li>
+                        <li><a href="#">Tolum Music Events</a></li>
+                        <li><a href="#">Damon Holiday Events</a></li>
+                        <li><a href="#">Atlanta Pay Music Events</a></li>
+                        <li><a href="#">New York Events</a></li>
+                        <li><a href="#">Chicago Events</a></li>
+                        <li><a href="#">Everett a Dallas Today</a></li>
+                        <li><a href="#">Los Angeles Events</a></li>
+                        <li><a href="#">Washington Events</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Connect With Us</h4>
+                    <ul>
+                        <li><a href="#">Contact Support</a></li>
+                        <li><a href="#">Contact Sales</a></li>
+                        <li><a href="https://x.com/eventbritehelp">X</a></li>
+                        <li><a href="https://www.facebook.com/Eventbrite">Facebook</a></li>
+                        <li><a href="https://www.linkedin.com/company/eventbrite">LinkedIn</a></li>
+                        <li><a href="https://www.instagram.com/eventbrite">Instagram</a></li>
+                        <li><a href="https://www.tiktok.com/@eventbrite">Tik Tok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Eventease</p>
+                <p>
+                    <a href="#">About</a> | 
+                    <a href="#">Blog</a> | 
+                    <a href="#">Help</a> | 
+                    <a href="#">Camera</a> | 
+                    <a href="#">Press</a> | 
+                    <a href="#">Impact</a> | 
+                    <a href="#">Investors</a> | 
+                    <a href="#">Security</a> | 
+                    <a href="#">Development</a> | 
+                    <a href="#">Status</a> | 
+                    <a href="#">Terms</a> | 
+                    <a href="#">Privacy</a> | 
+                    <a href="#">Accessibility</a> | 
+                    <a href="#">Cookies</a> | 
+                    <a href="#">Manage Double Preferences</a> | 
+                    <a href="#">Linked States</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

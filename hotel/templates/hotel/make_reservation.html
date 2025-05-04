@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Reservation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    {% extends 'hotel/base.html' %}
+
+{% block title %}Make Reservation{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4" style="color: rgb(55, 2, 73);">Reserve Room {{ room.number }}</h1>
+
+        <div class="card shadow-sm mb-4">
+            {% if room.image %}
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ room.image.url }}" alt="Room Image" class="d-block w-100">
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <img src="https://plus.unsplash.com/premium_photo-1661962495669-d72424626bdc?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="No Image">
+            {% endif %}
+            
+            <div class="card-body">
+                <h5 class="card-title">{{ room.room_type }}</h5>
+                <p><strong>Location:</strong> {{ room.location }}</p>
+                <p><strong>Price per night:</strong> ${{ room.price_per_night }}</p>
+            </div>
+        </div>
+
+        <div class="card p-4 shadow-sm">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Start Date -->
+                <div class="mb-3">
+                    <label for="start_date" class="form-label">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control" value="{{ form.start_date.value|default:'' }}" required>
+                </div>
+
+                <!-- End Date -->
+                <div class="mb-3">
+                    <label for="end_date" class="form-label">End Date</label>
+                    <input type="date" id="end_date" name="end_date" class="form-control" value="{{ form.end_date.value|default:'' }}" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-2">Submit Reservation</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

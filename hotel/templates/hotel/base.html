@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hotel Management{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    background-image: url('https://img.freepik.com/free-vector/purple-abstract-background-with-floating-wavy-shapes_1048-5172.jpg?t=st=1744617551~exp=1744621151~hmac=34b34e9bab58e159f0f6cfef2011926ec316f94c3847f22a1ef238cf9154120a&w=826');
+    background-size: cover;
+    background-position: center;
+    color: #f2f7ff;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* ✅ reduce space above navbar (remove default body margins/padding) */
+.navbar {
+    background: linear-gradient(to right, rgba(40, 20, 60, 0.9), rgba(60, 30, 90, 0.85)); /* Linear gradient */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Light shadow for separation */
+    animation: slideDown 1s ease forwards;
+    width: 100%;
+    padding: 1rem 2rem;
+    height: 80px;
+}
+
+.navbar .nav-link, .navbar .navbar-brand {
+    color: #fff !important;
+    font-size: 1.1rem;
+    position: relative;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+}
+
+.navbar .navbar-toggler {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #ffd700 !important;
+    transform: translateY(-2px);
+}
+
+.navbar li.nav-item {
+    font-weight: bold;
+}
+
+
+/* ✅ Hero - reduce top margin */
+.hero {
+    margin-top: 70px; /* was 90px, reduce as needed */
+    animation: fadeIn 1.5s ease forwards;
+}
+
+/* ✅ carousel at 70vh original */
+.carousel-item img {
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: slowZoom 20s ease infinite alternate;
+    filter: brightness(1.05) contrast(1.1);
+}
+
+/* optional gradient overlay on bottom */
+.carousel-inner::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 20%;
+    background: linear-gradient(to top, rgba(40,20,60,0.4), transparent);
+    pointer-events: none;
+}
+
+.container.mt-5 {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    animation: fadeScale 1.8s ease forwards;
+    transform: scale(1.03); /* ✅ slight zoom */
+    transition: transform 0.4s ease;
+}
+
+.container.mt-5:hover {
+    transform: scale(1.05); /* ✅ optional: zoom more on hover */
+}
+
+/* animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+@keyframes fadeScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+
+    </style>
+    
+    
+</head>
+<body>
+
+<!-- ✅ Fixed-Top Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(0, 0, 0, 0.7);">
+    <div class="container">
+        <a class="navbar-brand text-white" href="{% url 'hotel:room_list' %}" style="font-weight: bold;">HotelEase</a>
+        <button style="background-color: #614de2;border-radius: 20px;"><a class="nav-link text-white" href="{% url 'home' %}" style="font-weight: bold;">EventEase</a></button>
+            
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+            
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hotel:room_list' %}" style="color: #f5f5f5;">Rooms</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'hotel:my_reservations' %}" style="color: #f5f5f5;">My Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}" style="color: #f5f5f5;">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}" style="color: #f5f5f5;">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- ✅ Hero Carousel (Below navbar) -->
+<section class="hero container">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1612454882322-2cc894734fd2?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Slide 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1531743001864-5b07b75f8e79?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Slide 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1468824357306-a439d58ccb1c?q=80&w=1959&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Slide 3">
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Slide 4">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+<!-- ✅ Dynamic Page Content -->
+<div class="container mt-5">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- ✅ Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
